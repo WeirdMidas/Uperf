@@ -11,17 +11,20 @@
 - 监听cpuset分组更新操作，识别正在操作的APP发生切换
 - 监听唤醒锁更新操作，识别屏幕是否熄灭
 - 监听注入到Surfaceflinger的hook发送的通知，识别渲染开始、滞后、结束
-- 支持Android 6.0 - 12
+- Use PL1 (slowpowerlimit), PL2 (fastpowerlimit), and TAU (fastpowercapacity) to respect the Android workload and the device's thermal limitations. On desktops, TAU can last from minutes to over 20 seconds, but this is because they have active cooling, whereas Android devices have passive cooling. Based on this, adapt PL1, PL2, and TAU to be more consistent with the device's power consumption capacity through real-world data (from Geekbench) and also the SOC's focus. For example, SOCs focused on energy efficiency have higher sustained performance but slower burst performance. By respecting the SOC's focus and limitations, energy efficiency improves dramatically.
+- 支持Android 6.0 - 15
 - 支持arm64-v8a
-- 支持Magisk方式一键安装，版本不低于20.4+
+- Compatible with Magisk, KSU and Apatch, preferably the most up-to-date versions possible.
 - 不依赖于Magisk，可以手动方式安装
 - 除非SfAnalysis注入失败，大多数情况SELinux可保持`enforcing`
 - 不依赖于任何Android应用层框架以及第三方内核
 - 为大多数热门硬件平台提供了调参后的配置文件
+- Make Uperf more energy-conscious. Promote greater energy efficiency and decision-making regarding the use of LITTLE, BIG (and, if applicable, PRIME) clusters. Reducing the original Uperf's inefficiency by almost 80%, making Uperf MUCH more EAS-friendly.
+- Be more respectful of the scheduling methods of different architectures, such as the Android environment. Such as DynamlQ (SOCs with clusters in a single core along with PRIME cores) and Big.LITTLE (SOCs with separate clusters between LITTLE and BIG). Allow Uperf to adapt to the scheduling methods of these SOCs and become more efficient per watt, avoiding wasted energy.
 
 ## 下载
 
-https://github.com/yc9559/uperf/releases
+https://github.com/WeirdMidas/Uperf/releases
 
 ## 安装
 
