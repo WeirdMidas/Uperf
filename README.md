@@ -10,14 +10,15 @@
 - 主动采样系统负载，识别例如APP启动的瞬间重负载
 - 监听cpuset分组更新操作，识别正在操作的APP发生切换
 - 监听唤醒锁更新操作，识别屏幕是否熄灭
-- 监听注入到Surfaceflinger的hook发送的通知，识别渲染开始、滞后、结束
+- Replace sfanalysis with sfopt, a secondary optimization method for Surfaceflinger that uses Surfaceflinger's default parameters instead of using hooks. This reduces refresh rate interruptions and power consumption, directly improving Surfaceflinger's fluidity.
+- Optimize hint duration based on the SOC's maximum refresh rate. If the module recommends using the maximum refresh rate, hints will use it as a baseline, allowing Uperf to adapt and use more or less power depending on the device's fluidity needs.
 - Use PL1 (slowpowerlimit), PL2 (fastpowerlimit), and TAU (fastpowercapacity) to respect the Android workload and the device's thermal limitations. On desktops, TAU can last from minutes to over 20 seconds, but this is because they have active cooling, whereas Android devices have passive cooling. Based on this, adapt PL1, PL2, and TAU to be more consistent with the device's power consumption capacity through real-world data (from Geekbench) and also the SOC's focus. For example, SOCs focused on energy efficiency have higher sustained performance but slower burst performance. By respecting the SOC's focus and limitations, energy efficiency improves dramatically.
 - Allows the use of the "heavyLoad" hint as a way to mimic the sustained performance of Google Pixel devices. Use this hint to drastically reduce power consumption in games, allowing performance to be sustained for more than 30 minutes or more, even if the FPS is lower than normal. This is better for having a stable FPS and being able to last more than 30 minutes (as recommended by Google) or even hours of continuous gameplay, with optimal battery life.
 - 支持Android 6.0 - 15
 - 支持arm64-v8a
 - Compatible with Magisk, KSU and Apatch, preferably the most up-to-date versions possible.
 - 不依赖于Magisk，可以手动方式安装
-- 除非SfAnalysis注入失败，大多数情况SELinux可保持`enforcing`
+- Sfopt is compatible with most devices with multiple refresh rates, it will not cause problems like SElinux in permissive.
 - 不依赖于任何Android应用层框架以及第三方内核
 - 为大多数热门硬件平台提供了调参后的配置文件
 - Make Uperf more energy-conscious. Promote greater energy efficiency and decision-making regarding the use of LITTLE, BIG (and, if applicable, PRIME) clusters. Reducing the original Uperf's inefficiency by almost 80%, making Uperf MUCH more EAS-friendly.
