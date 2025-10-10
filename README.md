@@ -12,6 +12,7 @@
 - 监听唤醒锁更新操作，识别屏幕是否熄灭
 - 监听注入到Surfaceflinger的hook发送的通知，识别渲染开始、滞后、结束
 - Use PL1 (slowpowerlimit), PL2 (fastpowerlimit), and TAU (fastpowercapacity) to respect the Android workload and the device's thermal limitations. On desktops, TAU can last from minutes to over 20 seconds, but this is because they have active cooling, whereas Android devices have passive cooling. Based on this, adapt PL1, PL2, and TAU to be more consistent with the device's power consumption capacity through real-world data (from Geekbench) and also the SOC's focus. For example, SOCs focused on energy efficiency have higher sustained performance but slower burst performance. By respecting the SOC's focus and limitations, energy efficiency improves dramatically.
+- Allows the use of the "heavyLoad" hint as a way to mimic the sustained performance of Google Pixel devices. Use this hint to drastically reduce power consumption in games, allowing performance to be sustained for more than 30 minutes or more, even if the FPS is lower than normal. This is better for having a stable FPS and being able to last more than 30 minutes (as recommended by Google) or even hours of continuous gameplay, with optimal battery life.
 - 支持Android 6.0 - 15
 - 支持arm64-v8a
 - Compatible with Magisk, KSU and Apatch, preferably the most up-to-date versions possible.
