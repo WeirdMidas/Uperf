@@ -17,6 +17,7 @@
 - 支持Android 6.0 - 15
 - 支持arm64-v8a
 - Compatible with Magisk, KSU and Apatch, preferably the most up-to-date versions possible.
+- Uperf is currently only compatible with devices and SOCs that use the EAS Scheduler. SOCs that use the HMP Scheduler or even CASS will not be compatible.
 - 不依赖于Magisk，可以手动方式安装
 - Sfopt is compatible with most devices with multiple refresh rates, it will not cause problems like SElinux in permissive.
 - 不依赖于任何Android应用层框架以及第三方内核
@@ -137,8 +138,6 @@ Uperf支持如下几种情景识别：
 - `Standby`，屏幕熄灭时的Hint，一般滞后20秒(隐藏Hint)
 - `SsAnim`，系统动画播放切换的Hint
 - `WakeUp`，亮屏解锁切换的Hint
-
-
 
 #### 触摸信号识别
 
