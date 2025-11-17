@@ -14,17 +14,19 @@
 - Use PL1 (slowpowerlimit), PL2 (fastpowerlimit), and TAU (fastpowercapacity) to respect the Android workload and the device's thermal limitations. On desktops, TAU can last from minutes to over 20 seconds, but this is because they have active cooling, whereas Android devices have passive cooling. Based on this, adapt PL1, PL2, and TAU to be more consistent with the device's power consumption capacity through real-world data (from Geekbench) and also the SOC's focus. For example, SOCs focused on energy efficiency have higher sustained performance but slower burst performance. By respecting the SOC's focus and limitations, energy efficiency improves dramatically.
 - Follow a different approach where the energy model is scaled, instead of following Matt Yang's original idea that overestimates big cores and wastes the potential of clusters. Follow an energy model formula that better leverages performance-per-watt, maximizing the efficiency and performance of each cluster separately, without the overestimation or underestimation that Matt Yang's model introduced.
 - Implement the PELT+Schedutil formula in the Uperf custom governor. Build SchedUser, a user-space custom governor that aims to implement schedutil in Uperf, but in a more integrated way with Uperf, offering good decision-making capabilities and lower energy consumption.
+- Minimize jitter in various ways and across different interaction areas; only activate the "junk" hint if jitter and junk are anticipated. This reduces the impact on energy consumption proportionally to the device's fluidity, as it avoids triggering the aggressive "junk" hint to resolve the problem.
 - 支持Android 6.0 - 15
 - 支持arm64-v8a
 - Compatible with Magisk, KSU and Apatch, preferably the most up-to-date versions possible.
 - Uperf is currently only compatible with devices and SOCs that use the EAS Scheduler. SOCs that use the HMP Scheduler or even CASS will not be compatible.
 - 不依赖于Magisk，可以手动方式安装
 - Sfopt is compatible with most devices with multiple refresh rates, it will not cause problems like SElinux in permissive.
+- Utilize the DSP Offload technique, allowing you to proportionally reduce the power consumption of the device's audio/speaker. This can reduce power consumption by up to 0.1-0.2W if the prediction is correct.
 - 不依赖于任何Android应用层框架以及第三方内核
 - 为大多数热门硬件平台提供了调参后的配置文件
 - Make Uperf more energy-conscious. Promote greater energy efficiency and decision-making regarding the use of LITTLE, BIG (and, if applicable, PRIME) clusters. Reducing the original Uperf's inefficiency by almost 80%, making Uperf MUCH more EAS-friendly.
 - Be more respectful of the scheduling methods of different architectures, such as the Android environment. Such as DynamlQ (SOCs that have two or three clusters in a single cluster, such as those with prime cores) and Big.LITTLE (SOCs that have two clusters: the big cluster, the most powerful, and the little cluster, the most efficient). Allow Uperf to adapt to the scheduling methods of these SOCs and become more efficient per watt, avoiding wasted energy.
-- Implement a strategy like Google ADPF, a scheduling method that places cooperative game threads on small cores and keeps the main threads on large cores. Uperf will use this method as the main game scheduling, with crucial changes such as allowing cooperative game threads to boost to large cores if necessary.
+- Implement a strategy like Google ADPF, a scheduling method that places cooperative game threads on small cores and keeps the main threads on big/prime cores. Uperf will use this method as the main game scheduling, with crucial changes such as allowing cooperative game threads to boost to big cores if necessary.
 - Regarding the big.LITTLE architecture and its migration needs: Use Matt Yang's test, in which binder tasks take 7ms to complete on the little core and 3ms on the big core, as a basis for possible tuning involving migration. Migrate tasks to the big cluster ONLY if the net gain is 2.88ms, keeping ultra-short tasks (7ms) on the LITTLE cores, since they can solve more efficiently without exorbitant energy costs.
 
 ## 下载
