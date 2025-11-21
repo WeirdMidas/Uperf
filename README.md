@@ -16,7 +16,6 @@
 - Implement Google's ADPF (Android Dynamic Performance Framework) scheduling methods in Uperf. This allows for better routing of game threads across various clusters with different capacities, maximizing energy efficiency and performance conditionally according to the capabilities of each SOC.
 - Implement the PELT+Schedutil formula in the Uperf custom governor. Build SchedUser, a user-space custom governor that aims to implement schedutil in Uperf, but in a more integrated way with Uperf, offering good decision-making capabilities and lower energy consumption.
   - In addition to custom governor implementations, implement a feature where Uperf will "guide" the kernel, using WALT/PELT mechanisms and kernel EAS functions to maximize Uperf's potential. Make Uperf utilize available kernel capabilities, allowing Uperf to become an "amalgam" between user space and kernel space, enabling the kernel to fully exploit its potential and beyond!
-    - Synchronize the PELT sampling rate with the maximum refresh rate that the processor can offer. This allows you to minimize as much as possible the energy wastage that occurs with frame drops, enabling the CPU, GPU, and interconnect to deliver the desired performance WITHIN the processor's demands. It slightly improves decision-making and energy efficiency; it's simply a reduction in wasted energy.
 - 支持Android 6.0 - 15
 - 支持arm64-v8a
 - Compatible with Magisk, KSU and Apatch, preferably the most up-to-date versions possible.
@@ -567,5 +566,6 @@ UFS节能开关的`sysfs`节点路径为`/sys/devices/platform/soc/1d84000.ufshc
 ## 捐赠
 
 如果你实在愿意，下面是感谢云讨饭通道(备注写上你的ID和来源平台)：  
+
 
 ![](media/alipay-qr.png)
