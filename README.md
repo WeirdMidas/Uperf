@@ -21,6 +21,8 @@
 - Compatible with Magisk, KSU and Apatch, preferably the most up-to-date versions possible.
 - Uperf is currently only compatible with devices and SOCs that use the EAS Scheduler. SOCs that use the HMP Scheduler or even CASS will not be compatible.
 - Additionally, reduce the noise that the kernel causes to uperf. Disable scheduler functions that prevent Uperf from controlling the kernel with the LOWEST possible latency. If the kernel wants to take control, let it ONLY be to help Uperf, not hinder it.
+  - Let Uperf handle task affinity and placement; ignore any sysfs/modules that attempt to modify task placement in their own way. This allows for reduced redundancy and gives Uperf more control.
+- Work in conjunction with the kernel and its thermal limitations. Do not disable all thermal throttling, only the artificial ones used to limit the frequency unnecessarily. Furthermore: Improve how Uperf interacts with these thermals, allowing Uperf and the kernel to work together to manage the temperature and thermal limits of the SOC. Maximize stability under load, even if the kernel limits the frequency; make Uperf adaptable to this.
 - 不依赖于Magisk，可以手动方式安装
 - Sfopt is compatible with most devices with multiple refresh rates, it will not cause problems like SElinux in permissive.
 - 不依赖于任何Android应用层框架以及第三方内核
